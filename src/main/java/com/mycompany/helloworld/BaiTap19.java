@@ -4,13 +4,15 @@
  */
 package com.mycompany.helloworld;
 
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
  *
  * @author Admin
  */
-public class BaiTap17 {
+public class BaiTap19 {
 
     /**
      * @param args the command line arguments
@@ -18,15 +20,22 @@ public class BaiTap17 {
     public static void main(String[] args) {
         // TODO code application logic here
         Scanner sc = new Scanner(System.in);
-        int n = nhapLength(sc);
+        int n = nhapLength();
         int[] a = new int[n];
-        nhapMang(a, sc);
+        
+        mangRD(a, n);
+        System.out.print("\nMang ban dau: ");
         xuatMang(a);
-        System.out.print("\nTrung binh gia tri mang: " + trungBinh(a));
-        System.out.print("\nPhan tu nho nhat mang: " + timMin(a));
+        
+        System.out.print("\nMang sau khi sap xep tang: ");
+        sapXepTang(a);
+        xuatMang(a);
+        
+        lietKeUocSo(a, sc);
     }
-    public static int nhapLength(Scanner sc){
+    public static int nhapLength(){
         int n;
+        Scanner sc = new Scanner(System.in);
         boolean flag = true;
         do {
             if (flag) {
@@ -38,38 +47,31 @@ public class BaiTap17 {
                 n = sc.nextInt();
             }
             flag = false;
-        }while(n < 1 || n > 20);
+        }while(n < 0 || n > 20);
         return n;
     }
-    public static void nhapMang(int[] a, Scanner sc){
-        for (int i = 0; i < a.length; i++) {
-            System.out.print("Nhap a[" + i + "]: ");
-            a[i] = sc.nextInt();
-        }
-    }
-    public static void xuatMang(int[] a){
-        String s = "";
-        for (int i = 0; i < a.length; i++) {
-            s += a[i] + " ";
-        }
-        System.out.print("Mang vua nhap: " + s);
-    }
-    public static int trungBinh(int[] a){
-        int tb = 0;
-        int tong = 0;
+    public static void xuatMang(int[]a){
         for(int x : a){
-            tong += x;
+            System.out.print(x + " ");
         }
-        tb = tong / a.length;
-        return tb;
     }
-    public static int timMin(int[]a){
-        int min = a[0];
-        for(int i = 0; i < a.length; i++){
-            if(a[i] < min){
-                min = a[i];
+    public static void mangRD(int[] a, int n){
+        Random rd = new Random();
+        for (int i = 0; i < a.length; i++) {
+            a[i] = rd.nextInt(101);
+        }
+    }
+    public static void sapXepTang(int[]a){
+        Arrays.sort(a);
+    }
+    public static void lietKeUocSo(int[]a, Scanner sc){
+        System.out.print("\n\nNhap so nguyen x: ");
+        int x = sc.nextInt();
+        System.out.print("Cac phan tu la uoc so cua x: ");
+        for(int y : a){
+            if(x % y == 0){
+                System.out.print(y + " ");
             }
         }
-        return min;
     }
 }
